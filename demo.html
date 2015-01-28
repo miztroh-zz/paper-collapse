@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="shortcut icon apple-touch-icon-precomposed" href="/images/icon.png">
+		<script src="/bower_components/webcomponentsjs/webcomponents.min.js"></script>
+		<link rel="import" href="/bower_components/core-icon/core-icon.html">
+		<link rel="import" href="/bower_components/core-icons/maps-icons.html">
+		<link rel="import" href="/bower_components/core-selector/core-selector.html">
+		<link rel="import" href="paper-collapse.html">
+	</head>
+	<body fullbleed layout vertical>
+		<template is="auto-binding">
+			<div layout horizontal>
+				<div flex></div>
+				<div flex four>
+					<br><br>
+					<select id="selectionType">
+						<option value="single">Single Selection</option>
+						<option value="multiple">Multiple Selection</option>
+					</select>
+					<br><br>
+					<core-selector selectedAttribute="opened" multi="{{$.selectionType.value === 'multiple' ? true : false}}">
+						<paper-collapse label="Cloud Storage" labelIcon="cloud">
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+						</paper-collapse>
+						<paper-collapse label="Extensions" labelIcon="extension">
+							<ul>
+								<li>One</li>
+								<li>Two</li>
+								<li>Three</li>
+								<li>Four</li>
+							</ul>
+						</paper-collapse>
+						<paper-collapse label="Trends" labelIcon="trending-up">
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+						</paper-collapse>
+						<paper-collapse label="No Label Icon">
+							<p>Add content here.</p>
+						</paper-collapse>
+					</core-selector>
+				</div>
+				<div flex seven></div>
+			</div>
+		</template>
+	</body>
+</html>
