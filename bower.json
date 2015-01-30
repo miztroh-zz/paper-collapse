@@ -26,7 +26,6 @@
     "core-collapse": "polymer/core-collapse#latest",
     "core-icon": "polymer/core-icon#latest",
     "core-icons": "polymer/core-icons#latest",
-    "core-selector": "polymer/core-selector#latest",
     "font-roboto": "polymer/font-roboto#latest"
   }
 }
