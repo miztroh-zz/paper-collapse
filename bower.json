@@ -1,6 +1,6 @@
 {
   "name": "paper-collapse",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://github.com/miztroh/paper-collapse",
   "authors": [
     "miztroh <miztroh@gmail.com>"
@@ -23,9 +23,10 @@
     "tests"
   ],
   "dependencies": {
-    "core-collapse": "polymer/core-collapse#latest",
-    "core-icon": "polymer/core-icon#latest",
-    "core-icons": "polymer/core-icons#latest",
-    "font-roboto": "polymer/font-roboto#latest"
+    "polymer": "polymer/polymer#^0.5.5",
+    "core-collapse": "polymer/core-collapse#^0.5.5",
+    "core-icon": "polymer/core-icon#^0.5.5",
+    "core-icons": "polymer/core-icons#^0.5.5",
+    "font-roboto": "polymer/font-roboto#^0.5.5"
   }
 }

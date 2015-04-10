@@ -110,6 +110,14 @@ Example:
 	        * @type String
 	        */
 					openedIcon: 'expand-less'
+				},
+				ready: function () {
+					this.$.collapse.addEventListener(
+						'tap',
+						function (event) {
+							event.stopPropagation();
+						}
+					);
 				}
 			}
 		);
