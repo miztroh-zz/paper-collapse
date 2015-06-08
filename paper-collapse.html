@@ -63,7 +63,7 @@ Example:
 				<div flex id="label">{{label}}</div>
 				<core-icon icon="{{opened ? openedIcon : closedIcon}}" id="toggleIcon"></core-icon>
 			</div>
-			<core-collapse id="collapse" opened?="{{opened}}">
+			<core-collapse id="collapse" opened?="{{opened}}" allowOverflow?="{{allowOverflow}}">
 				<content></content>
 			</core-collapse>
 		</div>
@@ -72,6 +72,13 @@ Example:
 		Polymer(
 			{
 				publish: {
+					/**
+					* Flag allowing the content to overflow the clipped container or not. Useful for dropdowns or similar.
+					*
+					* @property allowOverflow
+					* @type Boolean
+					*/					
+					allowOverflow: false,
 					/**
 	        * The toggle icon to display when the `paper-collapse` is closed.
 	        *
