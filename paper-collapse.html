@@ -1,38 +1,28 @@
-<!--
-A Polymer custom element that expands and collapses vertically to show and hide its contents à la Material Design.
-
-Example:
-
-		<core-selector selectedAttribute="opened">
-			<paper-collapse label="Click to open...">
-				<p>Hello, world!</p>
-			</paper-collapse>
-		</core-selector>
-
-@element paper-collapse
-@homepage https://github.com/miztroh/paper-collapse
--->
 <link rel="import" href="/bower_components/polymer/polymer.html">
-<link rel="import" href="/bower_components/core-collapse/core-collapse.html">
-<link rel="import" href="/bower_components/core-icon/core-icon.html">
-<link rel="import" href="/bower_components/core-icons/core-icons.html">
+<link rel="import" href="/bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="/bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="/bower_components/font-roboto/roboto.html">
-<polymer-element name="paper-collapse">
+<dom-module id="paper-collapse">
   <template>
-  	<style>
-  		:host {
-  			display: block;
-  			font-family: RobotoDraft;
-  			border: 1px solid transparent;
-  			margin-top: -1px;
-  		}
+		<style>
+			:host {
+				display: block;
+				font-family: Roboto;
+				border-top: 1px solid transparent;
+				border-bottom: 1px solid transparent;
+				margin-top: -1px;
+			}
 
 			:host([opened]) {
-				border-color: #EBEBEB;
+				border-top-color: #EBEBEB;
+				border-bottom-color: #EBEBEB;
 			}
 
 			#toolbar {
-				padding: 15px;
+				padding: 12px 15px;
+				@apply(--layout-horizontal);
 			}
 
 			#toolbar:hover {
@@ -44,72 +34,68 @@ Example:
 				margin-right: 30px;
 			}
 
+			:host([opened]) #labelIcon,
+			:host([opened]) #label {
+				color: #2A9AF2;
+			}
+
 			#label {
 				padding-right: 30px;
 				line-height: 24px;
+				@apply(--layout-flex);
 			}
 
-			#toggleIcon {
+			#closedIcon,
+			#openedIcon {
 				color: #B4B4B4;
 			}
-
-			#collapse {
-				padding: 0 15px 15px 15px;
-			}
-  	</style>
+		</style>
 		<div id="container">
-			<div layout horizontal id="toolbar">
-				<template if="{{labelIcon}}"><core-icon icon="{{labelIcon}}" id="labelIcon"></core-icon></template>
-				<div flex id="label">{{label}}</div>
-				<core-icon icon="{{opened ? openedIcon : closedIcon}}" id="toggleIcon"></core-icon>
+			<div id="toolbar" on-click="toggle">
+				<template is="dom-if" if="{{labelIcon}}">
+					<iron-icon icon="{{labelIcon}}" id="labelIcon"></iron-icon>
+				</template>
+				<div id="label">{{label}}</div>
+				<iron-icon icon="{{closedIcon}}" id="closedIcon" hidden$="{{opened}}"></iron-icon>
+				<iron-icon icon="{{openedIcon}}" id="openedIcon" hidden$="{{!opened}}"></iron-icon>
 			</div>
-			<core-collapse id="collapse" opened?="{{opened}}">
+			<iron-collapse id="collapse" opened$="{{opened}}">
 				<content></content>
-			</core-collapse>
+			</iron-collapse>
 		</div>
   </template>
 	<script>
 		Polymer(
 			{
-				publish: {
-					/**
-	        * The toggle icon to display when the `paper-collapse` is closed.
-	        *
-	        * @property closedIcon
-	        * @type String
-	        */
-					closedIcon: 'expand-more',
-					/**
-	        * The text to display in the toolbar area of the `paper-collapse`.
-	        *
-	        * @property label
-	        * @type String
-	        */
-					label: '',
-					/**
-	        * The icon to display to the left of the label.  Optional.
-	        *
-	        * @property labelIcon
-	        * @type String
-	        */
-					labelIcon: '',
-					/**
-	        * Whether or not the `paper-collapse` is opened and its content visible.
-	        *
-	        * @property opened
-	        * @type Boolean
-	        */
-					opened: {
-						value: false,
-						reflect: true
+				close: function () {
+					this.opened = false;
+				},
+				open: function () {
+					this.opened = true;
+				},
+				properties: {
+					closedIcon: {
+						type: String,
+						value: 'expand-more'
 					},
-					/**
-	        * The toggle icon to display when the `paper-collapse` is opened.
-	        *
-	        * @property openedIcon
-	        * @type String
-	        */
-					openedIcon: 'expand-less'
+					label: {
+						type: String,
+						value: ''
+					},
+					labelIcon: {
+						type: String,
+						value: ''
+					},
+					opened: {
+						type: Boolean,
+						value: false,
+						reflectToAttribute: true,
+						notify: true
+					},
+					openedIcon: {
+						type: String,
+						value: 'expand-less'
+					}
 				},
 				ready: function () {
 					this.$.collapse.addEventListener(
@@ -118,8 +104,11 @@ Example:
 							event.stopPropagation();
 						}
 					);
+				},
+				toggle: function () {
+					this.opened = !this.opened;
 				}
 			}
 		);
 	</script>
-</polymer-element>
+</dom-module>
