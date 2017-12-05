@@ -1,9 +1,8 @@
-<link rel="import" href="/bower_components/polymer/polymer.html">
-<link rel="import" href="/bower_components/iron-collapse/iron-collapse.html">
-<link rel="import" href="/bower_components/iron-icon/iron-icon.html">
-<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="/bower_components/font-roboto/roboto.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-collapse/iron-collapse.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../font-roboto/roboto.html">
 <dom-module id="paper-collapse">
   <template>
 		<style>
@@ -22,7 +21,7 @@
 
 			#toolbar {
 				padding: 12px 15px;
-				@apply(--layout-horizontal);
+				@apply --layout-horizontal;
 			}
 
 			#toolbar:hover {
@@ -36,13 +35,13 @@
 
 			:host([opened]) #labelIcon,
 			:host([opened]) #label {
-				color: #2A9AF2;
+				color: #543828;
 			}
 
 			#label {
 				padding-right: 30px;
 				line-height: 24px;
-				@apply(--layout-flex);
+				@apply --layout-flex;
 			}
 
 			#closedIcon,
@@ -60,24 +59,21 @@
 				<iron-icon icon="{{openedIcon}}" id="openedIcon" hidden$="{{!opened}}"></iron-icon>
 			</div>
 			<iron-collapse id="collapse" opened$="{{opened}}">
-				<content></content>
+				<slot></slot>
 			</iron-collapse>
 		</div>
   </template>
 	<script>
-		Polymer(
-			{
-				is: 'paper-collapse',
-				close: function () {
-					this.opened = false;
-				},
-				open: function () {
-					this.opened = true;
-				},
-				properties: {
+		class PaperCollapse extends Polymer.Element {
+			static get is() {
+				return 'paper-collapse';
+			}
+
+			static get properties() {
+				return {
 					closedIcon: {
 						type: String,
-						value: 'expand-more'
+						value: 'the-waypoint:expand-more'
 					},
 					label: {
 						type: String,
@@ -95,21 +91,35 @@
 					},
 					openedIcon: {
 						type: String,
-						value: 'expand-less'
+						value: 'the-waypoint:expand-less'
 					}
-				},
-				ready: function () {
-					this.$.collapse.addEventListener(
-						'tap',
-						function (event) {
-							event.stopPropagation();
-						}
-					);
-				},
-				toggle: function () {
-					this.opened = !this.opened;
-				}
+				};
 			}
-		);
+
+			ready() {
+				super.ready();
+
+				this.$.collapse.addEventListener(
+					'tap',
+					function (event) {
+						event.stopPropagation();
+					}
+				);
+			}
+
+			close() {
+				this.opened = false;
+			}
+
+			open() {
+				this.opened = true;
+			}
+
+			toggle() {
+				this.opened = !this.opened;
+			}
+		}
+
+		customElements.define(PaperCollapse.is, PaperCollapse);
 	</script>
 </dom-module>
